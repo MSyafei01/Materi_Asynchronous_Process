@@ -1,13 +1,22 @@
 import { doSomething } from './utils.mjs';
 
-function onFulfilled(doSomethingData) {
-  // Do your jobs when "fulfilled" happens…
-  console.log(doSomethingData);
+async function promiseWithAsyncAwait() {
+  try {
+    console.log('Start.');
+
+    const result = await doSomething();
+    console.log(result);
+
+    console.log('End.');
+  } catch (error) {
+    console.log(error.message);
+  }
 }
 
-function onRejected(doSomethingError) {
-  // Do your jobs when "rejected" happens…
-  console.log(doSomethingError);
-}
+promiseWithAsyncAwait();
 
-doSomething().then(onFulfilled, onRejected);
+/* Output:
+Start.
+You did it.
+End.
+*/
