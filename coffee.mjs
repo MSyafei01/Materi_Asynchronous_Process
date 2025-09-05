@@ -1,13 +1,21 @@
-export function makeCoffee(callback) {
-    const estimationTime = 5000;
+function promiseExecutor(resolve, reject) {
+  setTimeout(() => {
+    console.log('Melakukan sesuatu sebelum Promise diselesaikan.');
 
-    const inSecond = Math.ceil(estimationTime / 1000);
-    console.log(`Mohon menunggu. Pramusaji sedang membuatkan kopi dalam ${inSecond} detik`);
+    // Penentuan hasil dari proses asinkron
+    const number = Math.random();
 
-    setTimeout(() => {
-    // Do some tasks to make coffee...
-    console.log('Pramusaji selesai membuat kopi.');
+    // Nilai fulfillment dari Promise
+    if (number > 0.5) {
+      resolve('You did it!');
+    }
+    // Nilai rejection dari Promise
+    else {
+      reject('Sorry, something went wrong!');
+    }
+  }, 2000);
+}
 
-    callback();
-}, estimationTime);
+export function doSomething() {
+  return new Promise(promiseExecutor);
 }

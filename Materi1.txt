@@ -13,4 +13,133 @@ Callback adalah sebuah function yang dijadikan sebagai nilai argument bagi funct
     Contoh callback yang pernah kita temui sebelumnya adalah memberikan function pada setTimeout dalam parameter 
     pertama. Setelah mencapai nilai timeout, callback akan dibangkitkan atau dijalankan.
 
+---------------------------------------------------------------------------------------------------------
+main.mjs
+
+import { makeCoffee } from './coffee.mjs';
+
+console.log('Saya memesan kopi di kafe.');
+
+makeCoffee(() => {
+  console.log('Pramusaji memberikan kopi pesanan.');
+  console.log('Saya mendapatkan kopi dan menghabiskannya.');
+});
+
+-------------------------------------------------------------
+coffee.mjs
+
+
+export function makeCoffee(callback) {
+    const estimationTime = 5000;
+
+    const inSecond = Math.ceil(estimationTime / 1000);
+    console.log(`Mohon menunggu. Pramusaji sedang membuatkan kopi dalam ${inSecond} detik`);
+
+    setTimeout(() => {
+    // Do some tasks to make coffee...
+    console.log('Pramusaji selesai membuat kopi.');
+
+    callback();
+}, estimationTime);
+}
+---------------------------------------------------------------------------------------------------------
+
+Pada kode di atas, kita memiliki beberapa perubahan. makeCoffee memiliki satu parameter yang akan menerima 
+function alias callback agar dijalankan setelah proses pembuatan kopi selesai.
+
+Function tersebut adalah tugas untuk pramusaji memberikan kopi kepada customer dan kemudian customer menghabiskan kopinya.
+
+
+
+Penanganan Error dengan Callback
+Tugas yang berjalan secara asynchronous bisa saja berjalan sesuai dengan harapan dan bisa juga memberikan hasil 
+bertolak belakang.
+
+
+
+---------------------------------------------------------------------------------------------------------
+import { readFile } from 'fs';
+
+readFile('./sample.txt', (error, data) => {
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  const greeting = data.toString()
+    .replace('%name%', 'BAQI')
+    .replace('%your_name%', 'JavaScript');
+
+  console.log(greeting);
+});
+
+
+-----------------------------------------------------------
+
+Hello %name%, my name is %your_name%.
+---------------------------------------------------------------------------------------------------------
+
+
+
+Apa Itu Promise
+Callback bukanlah satu-satunya cara penanganan proses asynchronous sebenarnya. 
+    Callback dapat menjalankan tugasnya dengan sangat baik. Namun, ada hal yang menyebabkan callback ini mencapai 
+    taraf tidak efektif.
+
+
+
+---------------------------------------------------------------------------------------------------------
+import { doSomething } from './utils.mjs';
+
+function onFulfilled(doSomethingData) {
+  // Do your jobs when "fulfilled" happens…
+  console.log(doSomethingData);
+}
+
+function onRejected(doSomethingError) {
+  // Do your jobs when "rejected" happens…
+  console.log(doSomethingError);
+}
+
+doSomething().then(onFulfilled, onRejected);
+
+
+-----------------------------------------------------------
+function promiseExecutor(resolve, reject) {
+  setTimeout(() => {
+    console.log('Melakukan sesuatu sebelum Promise diselesaikan.');
+
+    // Penentuan hasil dari proses asinkron
+    const number = Math.random();
+
+    // Nilai fulfillment dari Promise
+    if (number > 0.5) {
+      resolve('You did it!');
+    }
+    // Nilai rejection dari Promise
+    else {
+      reject('Sorry, something went wrong!');
+    }
+  }, 2000);
+}
+
+export function doSomething() {
+  return new Promise(promiseExecutor);
+}
+
+
+---------------------------------------------------------------------------------------------------------
+
+
+Penanganan Bergaya Synchronous dengan Async-Await
+Penanganan Promise benar-benar memudahkan programmer JavaScript. Kode menjadi makin simpel dan enak dibaca. 
+
+
+
+
+
+
+
+
+
 

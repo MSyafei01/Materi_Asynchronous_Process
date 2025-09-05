@@ -1,8 +1,13 @@
-import { makeCoffee } from './coffee.mjs';
+import { doSomething } from './utils.mjs';
 
-console.log('Saya memesan kopi di kafe.');
+function onFulfilled(doSomethingData) {
+  // Do your jobs when "fulfilled" happens…
+  console.log(doSomethingData);
+}
 
-makeCoffee(() => {
-  console.log('Pramusaji memberikan kopi pesanan.');
-  console.log('Saya mendapatkan kopi dan menghabiskannya.');
-});
+function onRejected(doSomethingError) {
+  // Do your jobs when "rejected" happens…
+  console.log(doSomethingError);
+}
+
+doSomething().then(onFulfilled, onRejected);
