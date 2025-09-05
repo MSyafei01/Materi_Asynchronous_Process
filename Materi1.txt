@@ -5,4 +5,12 @@ Asynchronous Process
     - Mampu menggunakan callback, Promise, dan async-await dalam menangani proses asynchronous secara paralel ataupun serial.
     - Mampu menggunakan Promise.all dan Promise.allSettled untuk menjalankan banyak Promise sekaligus.
     
-       
+       Penanganan dengan Callback
+Salah satu metode untuk menangani asynchronous process adalah menggunakan callback.
+
+Callback adalah sebuah function yang dijadikan sebagai nilai argument bagi function yang lain. 
+    Ini persis dengan hal yang pernah kita pelajari pada materi Function Expression. 
+    Contoh callback yang pernah kita temui sebelumnya adalah memberikan function pada setTimeout dalam parameter 
+    pertama. Setelah mencapai nilai timeout, callback akan dibangkitkan atau dijalankan.
+
+
